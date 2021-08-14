@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <header class="header">
+        <form id='searchForm' class="search">
+            <input type="text" id='searchtext' placeholder="Search Movies Series .....">
+        </form>
+        <div class="type">
+            <span class="type2">Type<span>
+                    <span class="text">
+
+                        <input type="radio" name="filter" id="all" class="all" value="all" checked>
+                        <label>All</label>
+                        <input type="radio" name="filter" id="movies" class="movies" value="movie">
+                        <label>Movies</label>
+                        <input type="radio" name="filter" id="series" class="series" value="series">
+                        <label>Series</label>
+                        <input type="radio" name="filter" id="episode" value="episode">
+                        <label>episode</label>
+                    </span>
+        </div>
+    </header>
+
+    <div class="flex">
+
+
+        <section id="scroll">
+            <!-- Generated Movie List goes here -->
+
+            <ol id="movieList" class="list-group">
+            </ol>
+
+            <!-- <ul class="list-group">
+                <li class="list-group-item">An item</li>
+             
+            </ul> -->
+
+        </section>
+        <section id="movieDetails">
+            <!-- Generated Movie goes here -->
+            <button class="watchList" id="watchList">Watchlist</button>
+            <article class="movie" id="movie">
+                <!-- <img class="movie__img" src="" />
+
+                    <div class="movie__data">
+                        <h1 class="movie__name">Title</h3>
+                            <span class="Rated">pg</span>
+                            <span class="genre">Genre</span>
+                            <span class="runtime">RunTime</span>
+                            <h6 class="actors"> Actors</h6>
+                            <p class="plot">Plot</p>
+                            <div class="rating">
+                                <span class="imdb">Rating</span>
+
+                                <span class="rotan">Rating</span>
+                                <span class="metacritic">Rating</span>
+                            </div>
+                    </div> -->
+            </article>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
