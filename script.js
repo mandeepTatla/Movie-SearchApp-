@@ -9,6 +9,9 @@ const movieList = document.querySelector("#movieList");
 
 const WatchList = document.querySelector("#watchList");
 const individualMovie = document.querySelector("#movie");
+const cardlist = document.querySelector(".cardList");
+const watchListbtn = document.querySelector(".watchListbtn");
+let bookmarks = new Array();
 
 const apiKey = "c552542c";
 
@@ -20,34 +23,47 @@ function getType() {
     if (episode.value) return episode.value;
 }
 
+/* Search button handelr which will call the getAllList function
+             by passing the type and search value  */
+searchButton.addEventListener("submit", function(e) {
+    let searchValue = searchText.value;
+    individualMovie.innerHTML = "";
+    const type = getType();
+    getAllList(searchValue, type);
+    e.preventDefault();
+});
+
+// const localstoargeBookmarks = function(recipe) {
+//     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+// };
+
+// This function renders the list if the user selected type is Any, movie, series
+
 const renderList = function(data) {
     movieList.innerHTML = "";
 
     const div = document.createElement("li");
-    div.id = "results";
     div.className = " results";
     div.innerHTML = `${data.totalResults} Results`;
     movieList.appendChild(div);
-
     const { Search } = data;
-    console.log(Search);
+    //console.log(Search);
     Search.forEach((i) => {
         let loopingList = document.createElement("li");
         loopingList.id = `${i.imdbID}`;
         loopingList.className = " list-group-item clickList";
         loopingList.innerHTML = ` 
-
                 <img class="img" id=${i.imdbID} src="${i.Poster}"/>
                 ${i.Title}
                <span id=${i.imdbID} class='year'> ${i.Year}</span> `;
-
         movieList.appendChild(loopingList);
     });
 };
 
+// This function renders the list if the user selected type is Epsidoed
+
 const renderListEpisode = function(data) {
     movieList.innerHTML = "";
-
     const div = document.createElement("li");
     div.id = "results";
     div.className = "results";
@@ -60,19 +76,17 @@ const renderListEpisode = function(data) {
         let loopingList = document.createElement("li");
         loopingList.id = `${i.imdbID}`;
         loopingList.className = " list-group-item clickList";
-        loopingList.innerHTML = ` 
-
-                
-                ${i.Title}
-               <span id=${i.imdbID} class='year'> ${i.Released}</span> `;
-
+        loopingList.innerHTML = `  ${i.Title}
+        <span id=${i.imdbID} class='year'> ${i.Released}</span> `;
         movieList.appendChild(loopingList);
     });
 };
 
-const renderMovie = function(data) {
+// This function will render the full details of selected item from the list.
+const renderMovie = function(data, bookmarks) {
     individualMovie.innerHTML = "";
 
+    const bookmarklist = bookmarks;
     const rate = data.Ratings;
     let ratingArr = [];
     if (rate.length === 0) {
@@ -96,10 +110,14 @@ const renderMovie = function(data) {
         ratingArr = [...rate];
     }
     const html = ` 
+                     
                     <div class = "movieInfo">
+                 
                     <div class="imageContainer">
+                  
                      <img class="movieImg" src="${data.Poster}" />
                      </div>
+                  
                      <div class="Title">
                         <h1 class="movieName">${data.Title}</h3>
                         <div class ="ratedGenre">
@@ -111,6 +129,9 @@ const renderMovie = function(data) {
                             <h6 class="actors"> ${data.Actors} </h6>
                             
                         </diV>
+                        <div>
+                         <button class="watchList" id="${data.imdbID}">Watchlist</button>
+                         </div>
                     </div>
                             <hr>
                             <p class="plot">${data.Plot}</p>
@@ -139,24 +160,107 @@ const renderMovie = function(data) {
                             </div>
                     </div>
                 `;
-
     individualMovie.insertAdjacentHTML("beforeend", html);
-    WatchList.style.opacity = 1;
+
+    // if the movie is added to watchlist before then it will contain the id in bookmark array.
+    // this will add the class toogle to button
+    const getbuttonClass = document.querySelector(".watchList");
+    const buttonId = getbuttonClass.getAttribute("id");
+    if (bookmarklist.includes(buttonId)) {
+        getbuttonClass.classList.toggle("toggle");
+    }
 };
 
+/// this function add all the movies selected by the user to the modal.
+
+function populateShowList(data) {
+    const html = `<div class="card">
+      <div class="card-body listClicked" id = ${data.imdbID}>
+       <img class="img" id=${data.imdbID} src="${data.Poster}"/>
+        ${data.Title}
+        <span id=${data.imdbID} class='year'> ${data.Year}</span> 
+      </div>
+    </div`;
+
+    cardlist.insertAdjacentHTML("beforeend", html);
+}
+
+// get the imdb ID and pass it to populateUI
 movieList.addEventListener("click", function(e) {
-    //const clickedElement = e.path[0];
     const clickedElement = e.target;
     const id = clickedElement.getAttribute("id");
-
-    // const id = clickedElement.getAttribute("id");
     if (id == null) {
         return;
     } else {
-        console.log(id);
         populateUI(id);
     }
 });
+
+// This function will add and remove the id from bookmark array
+
+function addWishlist(id) {
+    const getId = document.querySelector(`button#${id}`);
+    if (bookmarks.includes(id)) {
+        let index = bookmarks.indexOf(id);
+        bookmarks.splice(index, 1);
+        getId.classList.toggle("toggle");
+
+        console.log(bookmarks);
+    } else {
+        getId.classList.toggle("toggle");
+
+        bookmarks.push(id);
+        console.log(bookmarks);
+    }
+}
+
+// this click event will open the modal that contains all the watchlist that user has selected.
+
+watchListbtn.addEventListener("click", function(e) {
+    cardlist.innerHTML = "";
+    showWishList(bookmarks);
+});
+
+// this clickhandler will run when clicked on wishlist butoon and will get the id and pass it to addwishList(id)
+document.addEventListener("click", function(e) {
+    const getCurrentElement = e.target;
+
+    if (getCurrentElement.classList.contains("watchList")) {
+        const id = getCurrentElement.getAttribute("id");
+        addWishlist(id);
+    }
+});
+
+// this clickhandler will run only when clicked on items in the modal
+document.addEventListener("click", function(e) {
+    const getCurrentElement = e.target;
+    if (getCurrentElement.classList.contains("card-body")) {
+        const id = getCurrentElement.getAttribute("id");
+        console.log(id);
+        const modal = document.querySelector(".modal");
+        modal.getElementsByClassName.display = "none";
+        populateUI(id);
+    }
+});
+
+// this showlist function will run when user click bookmark button.
+// this will  make api calls depending upon how many items in list
+
+const showWishList = async function(imdbId) {
+    if (imdbId.length === 0) {
+        return;
+    } else {
+        for (let i = 0; i < imdbId.length; i++) {
+            const res = await fetch(
+                `https://www.omdbapi.com/?&i=${imdbId[i]}&apikey=${apiKey}&`
+            );
+            const data = await res.json();
+            //  console.log(data);
+            populateShowList(data);
+        }
+        console.log(imdbId);
+    }
+};
 
 const populateUI = async function(imdbId) {
     try {
@@ -164,72 +268,50 @@ const populateUI = async function(imdbId) {
             `https://www.omdbapi.com/?&i=${imdbId}&apikey=${apiKey}&`
         );
         const data = await res.json();
-        console.log(data);
-        renderMovie(data);
+        //console.log(data);
+        renderMovie(data, bookmarks);
     } catch (err) {
         console.log(err);
     }
 };
 
-const addBookmark = function(movie) {};
-
-/* Search button handelr which will call the getAllList function
- by passing the type and search value  */
-
-searchButton.addEventListener("submit", function(e) {
-    let searchValue = searchText.value;
-
-    individualMovie.innerHTML = "";
-    WatchList.style.opacity = 0;
-    const type = getType();
-
-    console.log(type);
-
-    getAllList(searchValue, type);
-
-    e.preventDefault();
-});
+function ShowError(err) {
+    movieList.innerHTML = "";
+    const html = `<li class= 'error list-group-item' > ${err} </li>`;
+    movieList.insertAdjacentHTML("beforeend", html);
+}
 
 /* function to get the data  of movies, episode, list from api call  */
 
 const getAllList = async function(searchValue, type = "") {
-    const year = 2020;
-    const year2 = 2018;
     try {
-        if (type == "all") {
-            const res = await fetch(
-                `https://www.omdbapi.com/?&s=${searchValue}&page=1&apikey=${apiKey}&`
-            );
-            const data = await res.json();
-            console.log(data);
-            renderList(data);
-        }
-        if (type == "movie" || type == "series") {
+        if (type == "movie" || type == "series" || type == "") {
             const res = await fetch(
                 `https://www.omdbapi.com/?&s=${searchValue}&type=${type}&apikey=${apiKey}&`
             );
             const data = await res.json();
-            //  console.log(data);
-            renderList(data);
+            console.log(data);
+            if (data.Error) {
+                ShowError(data.Error);
+            } else {
+                renderList(data);
+            }
         }
-        // if (type == "series") {
-        //     const res = await fetch(
-        //         `https://www.omdbapi.com/?&s=${searchValue}&type=series&apikey=${apiKey}&`
-        //     );
-        //     const data = await res.json();
-        //     console.log(data);
 
-        //     renderList(data);
-        // }
         if (type == "episode") {
             const res = await fetch(
                 `https://www.omdbapi.com/?&t=${searchValue}&Season=1&apikey=${apiKey}&`
             );
             const data = await res.json();
             console.log(data);
-            renderListEpisode(data);
+
+            if (data.Error) {
+                ShowError(data.Error);
+            } else {
+                renderListEpisode(data);
+            }
         }
     } catch (err) {
-        console.log(err);
+        ShowError(err.message);
     }
 };

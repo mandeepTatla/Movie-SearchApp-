@@ -17,61 +17,60 @@
 
     <header class="header">
         <form id='searchForm' class="search">
-            <input type="text" id='searchtext' placeholder="Search Movies Series .....">
+            <input type="text" id='searchtext' class="text" placeholder="Search Movies Series .....">
         </form>
-        <div class="type">
-            <span class="type2">Type<span>
-                    <span class="text">
+        <button class="watchListbtn" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Bookmark</button>
 
-                        <input type="radio" name="filter" id="all" class="all" value="all" checked>
-                        <label>All</label>
-                        <input type="radio" name="filter" id="movies" class="movies" value="movie">
-                        <label>Movies</label>
-                        <input type="radio" name="filter" id="series" class="series" value="series">
-                        <label>Series</label>
-                        <input type="radio" name="filter" id="episode" value="episode">
-                        <label>episode</label>
-                    </span>
+        <div class="radioType">
+            <div>Type</div>
+            <div class="text">
+
+                <input type="radio" name="filter" id="all" class="all" value="" checked>
+                <label>Any</label>
+                <input type="radio" name="filter" id="movies" class="movies" value="movie">
+                <label>Movies</label>
+                <input type="radio" name="filter" id="series" class="series" value="series">
+                <label>Series</label>
+                <input type="radio" name="filter" id="episode" class="episode" value="episode">
+                <label>Episodes</label>
+            </div>
         </div>
     </header>
 
     <div class="flex">
 
-
         <section id="scroll">
             <!-- Generated Movie List goes here -->
-
             <ol id="movieList" class="list-group">
             </ol>
-
-            <!-- <ul class="list-group">
-                <li class="list-group-item">An item</li>
-             
-            </ul> -->
-
         </section>
+
         <section id="movieDetails">
             <!-- Generated Movie goes here -->
-            <button class="watchList" id="watchList">Watchlist</button>
             <article class="movie" id="movie">
-                <!-- <img class="movie__img" src="" />
-
-                    <div class="movie__data">
-                        <h1 class="movie__name">Title</h3>
-                            <span class="Rated">pg</span>
-                            <span class="genre">Genre</span>
-                            <span class="runtime">RunTime</span>
-                            <h6 class="actors"> Actors</h6>
-                            <p class="plot">Plot</p>
-                            <div class="rating">
-                                <span class="imdb">Rating</span>
-
-                                <span class="rotan">Rating</span>
-                                <span class="metacritic">Rating</span>
-                            </div>
-                    </div> -->
             </article>
         </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Watch Later </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <ul class="modal-body cardList" data-bs-dismiss="modal">
+
+
+
+                </ul>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
