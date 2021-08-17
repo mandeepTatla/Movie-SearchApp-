@@ -28,6 +28,12 @@ body {
     border-radius: 5px;
     border: 1px solid #cbcbcb;
     margin-left: 0.5rem;
+    color: white;
+}
+
+input.my-input:-internal-autofill-selected {
+    background-color: rgb(87, 81, 81) !important;
+    color: white !important;
 }
 
 .radioType {
