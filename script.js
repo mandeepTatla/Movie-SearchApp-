@@ -33,9 +33,20 @@ searchButton.addEventListener("submit", function(e) {
     e.preventDefault();
 });
 
-// const localstoargeBookmarks = function(recipe) {
-//     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-// };
+const init = function() {
+    const storage = localStorage.getItem("bookmarks");
+
+    if (storage) {
+        bookmarks = JSON.parse(storage);
+    }
+};
+
+init();
+console.log(bookmarks);
+
+const localstoargeBookmarks = function(bookmark) {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+};
 
 // This function renders the list if the user selected type is Any, movie, series
 
@@ -204,12 +215,14 @@ function addWishlist(id) {
         let index = bookmarks.indexOf(id);
         bookmarks.splice(index, 1);
         getId.classList.toggle("toggle");
+        localstoargeBookmarks();
 
         console.log(bookmarks);
     } else {
         getId.classList.toggle("toggle");
 
         bookmarks.push(id);
+        localstoargeBookmarks();
         console.log(bookmarks);
     }
 }
@@ -237,8 +250,6 @@ document.addEventListener("click", function(e) {
     if (getCurrentElement.classList.contains("card-body")) {
         const id = getCurrentElement.getAttribute("id");
         console.log(id);
-        const modal = document.querySelector(".modal");
-        modal.getElementsByClassName.display = "none";
         populateUI(id);
     }
 });
