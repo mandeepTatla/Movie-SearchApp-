@@ -255,11 +255,11 @@ document.addEventListener("click", function(e) {
 });
 
 // this showlist function will run when user click bookmark button.
-// this will  make api calls depending upon how many items in list
+// this will  make api calls depending upon how many items in array.
 
 const showWishList = async function(imdbId) {
     if (imdbId.length === 0) {
-        return;
+        showEmptyListMessage();
     } else {
         for (let i = 0; i < imdbId.length; i++) {
             const res = await fetch(
@@ -285,6 +285,16 @@ const populateUI = async function(imdbId) {
         console.log(err);
     }
 };
+
+function showEmptyListMessage() {
+    cardlist.innerHTML = "";
+    const html = `<div class="card">
+      <div class="card-body" >
+       No bookmark Yet. Find a movie you like and bookmark it :) 
+      </div>
+    </div`;
+    cardlist.insertAdjacentHTML("beforeend", html);
+}
 
 function ShowError(err) {
     movieList.innerHTML = "";
