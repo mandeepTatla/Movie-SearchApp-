@@ -204,21 +204,21 @@ li.clickList:hover {
 /* media queries */
 
 @media (max-width: 54rem),
-(max-height: 36rem) {
-    /* .movieName {
-        font-size: 0.8rem;
-    }
+(max-height: 38rem) {
     .movieImg {
-        width: 8rem;
-        height: 17rem;
+        width: 9rem;
+        height: 14rem;
     }
-    .Title {
-        font-size: 0.7rem;
+    .movieName {
+        font-size: 1rem;
     }
-    .actors {
-        font-size: 0.7rem;
-    } */
-    .plot {
+    * {
+        font-size: 0.9rem;
+    }
+    .radioType {
         display: none;
+    }
+    .watchListbtn {
+        margin-right: 2rem;
     }
 }
