@@ -68,7 +68,7 @@ body {
 .flex {
     display: inline-flex;
     width: 100%;
-    height: 85%;
+    height: 82%;
 }
 
 
@@ -115,6 +115,7 @@ li.clickList:hover {
     padding: 0.5rem 1.7rem;
     border-radius: 0.5rem;
     background-color: white;
+    margin-right: 1.5rem;
 }
 
 .movieDetails {
@@ -122,17 +123,17 @@ li.clickList:hover {
 }
 
 .movie {
-    min-width: 67%;
+    min-width: 65%;
     height: 100%;
     display: flex;
     flex-direction: column;
     margin-left: 2rem;
-    margin-right: 1.1rem;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .movieInfo {
     display: flex;
+    justify-content: space-between;
 }
 
 .Title {
@@ -174,6 +175,20 @@ li.clickList:hover {
     color: white;
     border-radius: 5px;
     border: 1px solid #ffff00;
+}
+
+.plot {
+    margin-right: 2rem;
+}
+
+.rated {
+    padding: 0.1rem 0.4rem;
+    border: 1px solid black;
+    border-radius: 0.3rem;
+}
+
+.actors {
+    padding-top: 0.8rem;
 }
 
 

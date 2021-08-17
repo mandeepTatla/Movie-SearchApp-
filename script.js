@@ -129,7 +129,7 @@ const renderMovie = function(data, bookmarks) {
                             <h6 class="actors"> ${data.Actors} </h6>
                             
                         </diV>
-                        <div>
+                        <div class="divButton">
                          <button class="watchList" id="${data.imdbID}">Watchlist</button>
                          </div>
                     </div>
