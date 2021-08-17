@@ -59,8 +59,15 @@ body {
 .error.list-group-item {
     color: red;
     padding: 3rem;
-    font-size: 2rem;
+    font-size: 1.3rem;
     font-weight: bold;
+}
+
+.message {
+    letter-spacing: 0.2rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 3rem;
 }
 
 

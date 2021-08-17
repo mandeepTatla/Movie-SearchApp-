@@ -39,10 +39,12 @@ const init = function() {
     if (storage) {
         bookmarks = JSON.parse(storage);
     }
+
+    const html = `<div class ="message"> Start by searching by movie or series name. Have fun! </div>`;
+    individualMovie.insertAdjacentHTML("beforeend", html);
 };
 
 init();
-console.log(bookmarks);
 
 const localstoargeBookmarks = function(bookmark) {
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
@@ -58,7 +60,6 @@ const renderList = function(data) {
     div.innerHTML = `${data.totalResults} Results`;
     movieList.appendChild(div);
     const { Search } = data;
-    //console.log(Search);
     Search.forEach((i) => {
         let loopingList = document.createElement("li");
         loopingList.id = `${i.imdbID}`;
@@ -71,7 +72,7 @@ const renderList = function(data) {
     });
 };
 
-// This function renders the list if the user selected type is Epsidoed
+// This function renders the list if the user selected type is Epsidoe
 
 const renderListEpisode = function(data) {
     movieList.innerHTML = "";
