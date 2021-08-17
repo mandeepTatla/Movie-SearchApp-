@@ -40,7 +40,7 @@ const init = function() {
         bookmarks = JSON.parse(storage);
     }
 
-    const html = `<div class ="message"> Start by searching by movie or series name. Have fun! </div>`;
+    const html = `<div class ="message"> Start searching by movie or series name. Have fun! </div>`;
     individualMovie.insertAdjacentHTML("beforeend", html);
 };
 
