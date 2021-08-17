@@ -210,11 +210,10 @@ li.clickList:hover {
 
 /* media queries */
 
-@media (max-width: 54rem),
-(max-height: 38rem) {
+@media (max-width: 54rem) {
     .movieImg {
-        width: 9rem;
-        height: 14rem;
+        width: 10rem;
+        height: 13rem;
     }
     .movieName {
         font-size: 1rem;
@@ -227,5 +226,18 @@ li.clickList:hover {
     }
     .watchListbtn {
         margin-right: 2rem;
+    }
+}
+
+@media (max-height: 36rem) {
+    .movieImg {
+        width: 10rem;
+        height: 12rem;
+    }
+    .movieName {
+        font-size: 1rem;
+    }
+    * {
+        font-size: 0.9rem;
     }
 }
